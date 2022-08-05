@@ -27,7 +27,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::view('/','landingpage')->name('home');
- Route::view('/about','about')->name('about');
-Route::view('/contact','contact')->name('contact');
-Route::view('/service','service')->name('service');
+Route::view('/', 'landingpage')->name('home');
+Route::view('/about', 'about')->name('about');
+Route::view('/contact', 'contact')->name('contact');
+Route::view('/service', 'service')->name('service');
