@@ -5,80 +5,50 @@ namespace App\Http\Controllers;
 use App\Models\Asignaciones;
 use App\Http\Requests\StoreAsignacionesRequest;
 use App\Http\Requests\UpdateAsignacionesRequest;
+use App\Models\Clientes;
+use App\Models\Salas;
 
 class AsignacionesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $datos = Asignaciones::all();
+        return view('admin.asignaciones.index')->with('datos', $datos);
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $clientes = Clientes::all();
+        $salas = Salas::all();
+        return view('admin.asignaciones.create')->with('clientes', $clientes)->with('salas', $salas);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreAsignacionesRequest  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(StoreAsignacionesRequest $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Asignaciones  $asignaciones
-     * @return \Illuminate\Http\Response
-     */
     public function show(Asignaciones $asignaciones)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Asignaciones  $asignaciones
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Asignaciones $asignaciones)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAsignacionesRequest  $request
-     * @param  \App\Models\Asignaciones  $asignaciones
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateAsignacionesRequest $request, Asignaciones $asignaciones)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Asignaciones  $asignaciones
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Asignaciones $asignaciones)
     {
         //

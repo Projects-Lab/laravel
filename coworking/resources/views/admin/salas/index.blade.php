@@ -1,42 +1,40 @@
 @extends('adminlte::page')
 
-@section('title', 'Clientes')
+@section('title', 'Salas')
 
 @section('content_header')
-    <h1>Clientes</h1>
+    <h1>Salas</h1>
 @stop
 
 @section('content')
-    <a href="create" class="btn btn-primary mb-3">Nuevo Cliente</a>
+    <a href="create" class="btn btn-primary mb-3">Nueva Sala</a>
     <hr>
-    <h4>Listado de clientes</h4>
-    <table id="dtclientes" class="table table-striped table-bordered shadow-lg mt-4">
+    <h4>Listado de salas</h4>
+    <table id="salas" class="table table-striped table-bordered shadow-lg mt-4">
         <thead class="bg-secondary">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Cedula</th>
-                <th scope="col">Nombres</th>
-                <th scope="col">Apellidos</th>
-                <th scope="col">Celular</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($clientes as $clientes)
+            @foreach ($salas as $salas)
                 <tr>
-                    <th>{{ $clientes->id }}</th>
-                    <td>{{ $clientes->cedula }}</td>
-                    <td>{{ $clientes->nombres }}</td>
-                    <td>{{ $clientes->apellidos }}</td>
-                    <td>{{ $clientes->celular }}</td>
+                    <th>{{ $salas->id }}</th>
+                    <td>{{ $salas->codigo }}</td>
+                    <td>{{ $salas->nombre }}</td>
+                    <td>{{ $salas->estado }}</td>
                     <td>
-                        <a href="/cliente/{{$clientes->id}}/edit"  class="btn btn-info">Editar</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$clientes->id}}">
+                        <a href="/sala/{{$salas->id}}/edit"  class="btn btn-info">Editar</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-delete-{{$salas->id}}">
                             Eliminar
                         </button>
                         </td>
                 </tr>
-                @include('/admin.clientes.delete')
+                @include('/admin.salas.delete')
             @endforeach
         </tbody>
     </table>
@@ -57,7 +55,7 @@ href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css"
 <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#dtclientes').DataTable({
+        $('#salas').DataTable({
             "lengthMenu": [
                 [4, 8, 40, -1],
                 [4, 8, 40, "All"]

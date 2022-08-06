@@ -3,84 +3,68 @@
 namespace App\Http\Controllers;
 
 use App\Models\Salas;
-use App\Http\Requests\StoreSalasRequest;
-use App\Http\Requests\UpdateSalasRequest;
+use Illuminate\Http\Request;
 
 class SalasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        //
+        $salas = Salas::all();
+        return view('admin.salas.index')->with('salas', $salas);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('admin/salas/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreSalasRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreSalasRequest $request)
+    public function store(Request $request)
     {
-        //
+        $sala = new Salas();
+        $sala->codigo = $request->get('codigo');
+        $sala->nombre = $request->get('nombre');
+        $sala->estado = $request->get('estado');
+
+        $sala->save();
+
+        return redirect('sala/index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Salas  $salas
-     * @return \Illuminate\Http\Response
-     */
     public function show(Salas $salas)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Salas  $salas
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Salas $salas)
+    public function edit($id)
     {
-        //
+        $sala = Salas::find($id);
+        return view('admin.salas.edit')->with('sala', $sala);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateSalasRequest  $request
-     * @param  \App\Models\Salas  $salas
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateSalasRequest $request, Salas $salas)
+    public function update(Request $request, $id)
     {
-        //
+        $sala = Salas::find($id);
+
+        // $clientes->id = $request->get('id');      
+        $sala->codigo = $request->get('codigo');
+        $sala->nombre = $request->get('nombre');
+        $sala->estado = $request->get('estado');
+
+        $sala->save();
+
+        return redirect('/sala/index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Salas  $salas
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Salas $salas)
+    public function destroy($id)
     {
-        //
+        $sala = Salas::findOrFail($id);
+        $sala->delete();
+
+        return redirect('/sala/index');
     }
 }

@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'admin',
+    'dashboard_url' => '/inicial',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -256,17 +256,17 @@ return [
         ['header' => 'Cooworking:::'],
         [
             'text' => ' Cliente',
-            'url'  => 'admin/cliente/index',
+            'url'  => '/cliente/index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text' => ' Sala',
-            'url'  => 'admin/sala',
+            'url'  => '/sala/index',
             'icon' => 'fas fa-house-user',
         ],
         [
             'text' => ' Asignación',
-            'url'  => 'admin/asignacion',
+            'url'  => '/asignacion/index',
             'icon' => 'fas fa-headset',
         ],
         // [

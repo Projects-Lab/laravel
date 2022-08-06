@@ -26,7 +26,7 @@
                                 <a class="nav-link" href="{{route('contact')}}">Contactenos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">Ingresar</a>
+                                <a class="nav-link" href="{{ route('inicio') }}">Ingresar</a>
                             </li>
                         </ul>
                     </div>

@@ -3,85 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clientes;
-use App\Http\Requests\StoreClientesRequest;
-use App\Http\Requests\UpdateClientesRequest;
+use Illuminate\Http\Request;
 
 class ClientesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $clientes = Clientes::all();
         return view('admin.clientes.index')->with('clientes', $clientes);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+       return view('admin/clientes/create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreClientesRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreClientesRequest $request)
+    public function store(Request $request)
     {
-        //
+        $clientes = new Clientes();
+        $clientes->cedula = $request->get('cedula');
+        $clientes->nombres = $request->get('nombres');
+        $clientes->apellidos = $request->get('apellidos');
+        $clientes->celular = $request->get('celular');
+
+
+        $clientes->save();
+
+        return redirect('cliente/index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Clientes $clientes)
+    // public function show(Clientes $clientes)
+    // {
+        
+    // }
+
+    public function edit($id)
     {
-        //
+        $clientes = Clientes::find($id);
+        return view('admin.clientes.edit')->with('cliente',$clientes);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Clientes $clientes)
+    public function update(Request $request, $id)
     {
-        //
+        $clientes = Clientes::find($id);
+
+        // $clientes->id = $request->get('id');      
+        $clientes->cedula = $request->get('cedula');
+        $clientes->nombres = $request->get('nombres');
+        $clientes->apellidos = $request->get('apellidos');
+        $clientes->celular = $request->get('celular');
+
+
+        $clientes->save();
+
+        return redirect('/cliente/index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateClientesRequest  $request
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateClientesRequest $request, Clientes $clientes)
+    public function destroy($id)
     {
-        //
-    }
+        $clientes = Clientes::findOrFail($id);
+        $clientes->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Clientes  $clientes
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Clientes $clientes)
-    {
-        //
+        return redirect('/cliente/index');
     }
 }
